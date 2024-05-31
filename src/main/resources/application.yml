@@ -1,0 +1,45 @@
+micronaut:
+  caches:
+    discovery-client:
+      enabled: false
+  server:
+    cors:
+      enabled: true
+    port: 8085
+  application:
+    name: authentication-service
+  http:
+    client:
+      read-timeout: 100s
+
+
+  security:
+    authentication: idtoken
+    oauth2:
+      clients:
+        google:
+          client-id: '${OAUTH_CLIENT_ID:1092982181541-loklgho1qhtl9nu4ns3bjnl9jcr1cid9.apps.googleusercontent.com}'
+          client-secret: '${OAUTH_CLIENT_SECRET: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}'
+          openid:
+            issuer: 'https://accounts.google.com'
+    endpoints:
+      logout:
+        get-allowed: true
+
+
+flyway:
+  enabled: true
+  datasources:
+    default:
+      locations: classpath:db/migration
+      enabled: true
+
+datasources:
+  default:
+    url: jdbc:mysql://localhost:3306/hotel
+    username: hotel
+    password: hotel
+    dialect: MYSQL
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+

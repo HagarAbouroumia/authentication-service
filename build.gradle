@@ -1,0 +1,110 @@
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+}
+
+plugins {
+    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("io.micronaut.application") version "4.3.6"
+    id("io.micronaut.test-resources") version "4.3.6"
+    id("io.micronaut.aot") version "4.3.6"
+}
+
+version = "0.1"
+group = "com.example"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.projectlombok:lombok:1.18.26'
+    implementation("io.micronaut.flyway:micronaut-flyway")
+    annotationProcessor("io.micronaut.data:micronaut-data-processor")
+    annotationProcessor("org.projectlombok:lombok:1.18.26")
+    annotationProcessor("io.micronaut:micronaut-http-validation")
+    annotationProcessor("io.micronaut.jaxrs:micronaut-jaxrs-processor")
+    annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
+    annotationProcessor("io.micronaut.validation:micronaut-validation-processor")
+    runtimeOnly 'com.mysql:mysql-connector-j:8.0.32'
+    implementation("io.micronaut.validation:micronaut-validation")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut.data:micronaut-data-jdbc")
+    implementation("io.micronaut.jaxrs:micronaut-jaxrs-server")
+    implementation("io.micronaut.serde:micronaut-serde-jackson")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("jakarta.annotation:jakarta.annotation-api")
+    annotationProcessor("io.micronaut:micronaut-http-validation")
+    implementation "io.micronaut.beanvalidation:micronaut-hibernate-validator"
+//    implementation("io.micronaut.sql:micronaut-hibernate-jpa")
+    implementation("io.micronaut.data:micronaut-data-tx-hibernate")
+//    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    runtimeOnly("ch.qos.logback:logback-classic")
+    runtimeOnly("com.h2database:h2")
+    runtimeOnly("org.flywaydb:flyway-mysql")
+    testAnnotationProcessor("io.micronaut.jaxrs:micronaut-jaxrs-processor")
+    implementation "org.yaml:snakeyaml:1.29"
+
+    //DB imports
+    implementation("io.micronaut.flyway:micronaut-flyway")
+//    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("io.micronaut.data:micronaut-data-jdbc")
+    implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-jackson-databind")
+    implementation("io.micronaut.oraclecloud:micronaut-oraclecloud-atp")
+    implementation("io.micronaut.oraclecloud:micronaut-oraclecloud-sdk")
+    implementation("jakarta.annotation:jakarta.annotation-api")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.0")
+
+    implementation "io.swagger.core.v3:swagger-annotations:2.1.10"
+
+    implementation "org.projectlombok:lombok:1.18.26"
+    annotationProcessor "org.projectlombok:lombok:1.18.20"
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+
+    implementation "org.mapstruct:mapstruct:1.5.5.Final"
+    annotationProcessor "org.mapstruct:mapstruct-processor:1.5.5.Final"
+
+    implementation 'io.lettuce:lettuce-core:6.1.4'
+    implementation 'io.micronaut.views:micronaut-views-thymeleaf'
+
+    implementation 'io.micronaut.security:micronaut-security-oauth2'
+    implementation 'io.micronaut.security:micronaut-security-jwt'
+    implementation "uk.co.deloitte.alpha.http:alpha-http-mn-library:$alphaHttpLibVersion"
+
+
+}
+
+
+application {
+    mainClass = "com.example.Application"
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("17")
+    targetCompatibility = JavaVersion.toVersion("17")
+}
+
+
+graalvmNative.toolchainDetection = false
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("com.example.*")
+    }
+    aot {
+        // Please review carefully the optimizations enabled below
+        // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
+        optimizeServiceLoading = true
+        optimizeClassLoading = true
+        convertYamlToJava = trues
+        precomputeOperations = true
+    }
+}
+
+
+
