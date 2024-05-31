@@ -5,7 +5,7 @@ micronaut:
   server:
     cors:
       enabled: true
-    port: 8085
+    port: 8080
   application:
     name: authentication-service
   http:

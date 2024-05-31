@@ -16,14 +16,12 @@ public class UserCrudRepositoryFacade {
 
     public final UserCrudRepository repository;
 
-    public UserEntity save(UserEntity userEntity) throws Exception {
-        UserEntity savedUserEntity;
+    public void save(UserEntity userEntity) throws Exception {
         try {
-            savedUserEntity =  repository.save(userEntity);
+            repository.save(userEntity);
         } catch (Exception exception) {
             throw new Exception(exception.getMessage());
         }
-        return savedUserEntity;
     }
 
     public UserEntity findByMobileNumberAndPassword(String mobileNumber, String password) throws Exception {

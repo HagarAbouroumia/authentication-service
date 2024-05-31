@@ -17,7 +17,6 @@ import io.micronaut.views.View;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import uk.co.deloitte.banking.http.common.Alt;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +41,11 @@ public class AuthenticationController {
     @Post(value = "/sign-in", consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
     public HttpResponse<LoginResponse> login(@Valid @Body LoginRequest loginRequest) {
         return HttpResponse.ok(authenticationService.login(loginRequest));
+    }
+
+    @Get(value = "/oauth/callback/provider")
+    public HttpResponse<Void> test() {
+        return HttpResponse.ok();
     }
 
 }

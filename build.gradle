@@ -73,7 +73,8 @@ dependencies {
 
     implementation 'io.micronaut.security:micronaut-security-oauth2'
     implementation 'io.micronaut.security:micronaut-security-jwt'
-    implementation "uk.co.deloitte.alpha.http:alpha-http-mn-library:$alphaHttpLibVersion"
+
+    runtimeOnly("io.netty:netty-tcnative:2.0.29.Final")
 
 
 }
@@ -101,7 +102,7 @@ micronaut {
         // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
         optimizeServiceLoading = true
         optimizeClassLoading = true
-        convertYamlToJava = trues
+        convertYamlToJava = true
         precomputeOperations = true
     }
 }

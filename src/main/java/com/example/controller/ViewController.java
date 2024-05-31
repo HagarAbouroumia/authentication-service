@@ -14,7 +14,7 @@ public class ViewController {
 
     @Secured(SecurityRule.IS_ANONYMOUS)
     @View("home")
-    @Get
+    @Get()
     public Map<String, Object> index() {
         return new HashMap<>();
     }
