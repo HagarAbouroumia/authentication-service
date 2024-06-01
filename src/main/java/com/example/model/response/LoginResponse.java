@@ -19,4 +19,8 @@ public class LoginResponse {
     @Schema(name = "Message")
     @JsonProperty("Message")
     private String message;
+
+    @Schema(name = "UserId")
+    @JsonProperty("UserId")
+    private String userId;
 }

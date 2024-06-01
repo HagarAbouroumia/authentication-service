@@ -7,9 +7,13 @@ import com.example.model.request.RegisterUserRequest;
 import com.example.model.response.LoginResponse;
 import com.example.model.response.RegisterUserResponse;
 import com.example.repository.UserCrudRepositoryFacade;
+import io.micronaut.security.authentication.Authentication;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.security.Principal;
+import java.util.UUID;
 
 import static com.example.utils.Constants.CUSTOMER_ALREADY_REGISTERED_MSG;
 import static com.example.utils.Constants.CUSTOMER_NOT_REGISTERED;
@@ -47,18 +51,19 @@ public class AuthenticationService {
         LoginResponse response;
         try {
             if (!isUserRegistered(loginRequest.getMobileNumber())) {
-                response = AuthenticationMapper.INSTANCE.mapToLoginResponse(CUSTOMER_NOT_REGISTERED);
+                response = AuthenticationMapper.INSTANCE.mapToLoginResponse(CUSTOMER_NOT_REGISTERED, null);
                 log.info("Login user response [{}]", response.toString());
                 return response;
             }
             if (!isCredentialsCorrect(loginRequest)) {
-                response = AuthenticationMapper.INSTANCE.mapToLoginResponse(INCORRECT_CREDENTIALS);
+                response = AuthenticationMapper.INSTANCE.mapToLoginResponse(INCORRECT_CREDENTIALS, null);
                 log.info("Login user response [{}]", response.toString());
                 return response;
             }
-            response = AuthenticationMapper.INSTANCE.mapToLoginResponse(SUCCESS_CODE);
+            UserEntity userEntity = userCrudRepositoryFacade.findByMobileNumber(loginRequest.getMobileNumber());
+            response = AuthenticationMapper.INSTANCE.mapToLoginResponse(SUCCESS_CODE, userEntity.getId());
         } catch (Exception exception) {
-            response = AuthenticationMapper.INSTANCE.mapToLoginResponse(exception.getMessage());
+            response = AuthenticationMapper.INSTANCE.mapToLoginResponse(exception.getMessage(), null);
         }
         log.info("Login user response [{}]", response.toString());
         return response;
@@ -73,5 +78,16 @@ public class AuthenticationService {
         UserEntity userEntity = userCrudRepositoryFacade.findByMobileNumberAndPassword(
                 loginRequest.getMobileNumber(), loginRequest.getPassword());
         return userEntity != null;
+    }
+
+    public RegisterUserResponse signInWithGoogle() {
+        RegisterUserRequest registerUserRequest = RegisterUserRequest.builder()
+                .fullName("googleCustomer")
+                .birthDate("googleCustomer")
+                .mail("googleCustomer")
+                .mobileNumber(UUID.randomUUID().toString())
+                .password("googleCustomer")
+                .build();
+        return register(registerUserRequest);
     }
 }

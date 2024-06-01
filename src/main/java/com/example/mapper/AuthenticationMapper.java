@@ -35,13 +35,15 @@ public interface AuthenticationMapper {
         return RegisterUserResponse.builder()
                 .fullName(userEntity.getFullName())
                 .mobileNumber(userEntity.getMobileNumber())
+                .userId(userEntity.getId())
                 .message(message)
                 .build();
     }
 
-    default LoginResponse mapToLoginResponse(String message) {
+    default LoginResponse mapToLoginResponse(String message, String userId) {
         return LoginResponse.builder()
                 .message(message)
+                .userId(userId)
                 .build();
     }
 }

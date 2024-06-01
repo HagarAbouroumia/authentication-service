@@ -24,8 +24,6 @@ import java.util.Map;
 import static io.micronaut.http.MediaType.APPLICATION_JSON;
 
 @Controller()
-@Slf4j
-@Validated
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
@@ -43,9 +41,9 @@ public class AuthenticationController {
         return HttpResponse.ok(authenticationService.login(loginRequest));
     }
 
-    @Get(value = "/oauth/callback/provider")
+    @Get(value = "/oauth/callback/google")
     public HttpResponse<Void> test() {
+        System.out.printf("babeeeeeeeeeeeeeeeeeee");
         return HttpResponse.ok();
     }
-
 }

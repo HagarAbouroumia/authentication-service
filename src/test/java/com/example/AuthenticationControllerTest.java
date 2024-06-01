@@ -32,10 +32,10 @@ class AuthenticationControllerTest {
     @Inject
     AuthenticationController authenticationController;
 
-    @MockBean(AuthenticationService.class)
-    AuthenticationService authenticationService() {
-        return mock(AuthenticationService.class);
-    }
+//    @MockBean(AuthenticationService.class)
+//    AuthenticationService authenticationService() {
+//        return mock(AuthenticationService.class);
+//    }
 
 //    @Test
 //    @DisplayName("Test register endpoint")

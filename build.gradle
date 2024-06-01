@@ -76,6 +76,14 @@ dependencies {
 
     runtimeOnly("io.netty:netty-tcnative:2.0.29.Final")
 
+    implementation("io.micronaut.views:micronaut-views-thymeleaf")
+
+
+    testImplementation group: 'com.google.guava', name: 'guava', version: '30.1.1-jre'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+    testImplementation 'org.mockito:mockito-inline:3.12.4'
+
 
 }
 
